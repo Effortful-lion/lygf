@@ -22,11 +22,24 @@ func SetupRouter(mode string) *gin.Engine {
 	r := gin.New()
 	r.Use(logger.GinLogger(),logger.GinRecovery(true))	// 使用自定义的中间件
 	// 2. 注册路由
+
+	// 测试路由
 	r.GET("/",func(ctx *gin.Context) {
 		ctx.JSON(200,gin.H{
 			"msg":"ok",
 		})
 	})
+
+	//rg := r.Group("/api/v1")
+
+	{
+		// // 用户注册
+		// rg.POST("/regist",UserRegist)
+		// // 用户登录
+		// rg.POST("/login",UserLogin)
+	}
+
+
 	
 	// 返回实例
 	return r

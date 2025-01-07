@@ -5,6 +5,7 @@ import (
 	"lygf/backend/dao/mysql"
 	"lygf/backend/dao/redis"
 	"lygf/backend/logger"
+	//model "lygf/backend/model/mysql"
 	"lygf/backend/router"
 	"lygf/backend/setting"
 
@@ -17,8 +18,8 @@ func main() {
 	// 读取配置文件
 	err := setting.Init()
 	if err != nil {
-		panic(err)
 		zap.L().Error("配置文件读取失败", zap.Error(err))
+		panic(err)
 	}
 
 	// 初始化日志
@@ -37,6 +38,9 @@ func main() {
 		zap.L().Error("mysql init fail")
 		panic(err)
 	}
+
+	// 初始化mysql表（只在需要时初始化一次就可以了）
+	//model.Init()
 
 	// 初始化redis
 	err = redis.Init(setting.Conf.RedisConfig)

@@ -31,14 +31,16 @@ func Init(cfg *setting.LogConfig,mode string) (err error) {
 		return
 	}
 	var core zapcore.Core
-	if mode == "dev"{
+	if mode == "debug"{
 		//开发模式，日志输出到终端
 		consoleEncoder := zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())
+		// 同时输出到文件和终端
 		core = zapcore.NewTee(
 			zapcore.NewCore(encoder, writeSyncer, l),
 			zapcore.NewCore(consoleEncoder, zapcore.Lock(os.Stdout), zapcore.DebugLevel),
 		)
 	}else{
+		// 生产模式，日志只输出到文件
 		core = zapcore.NewCore(encoder, writeSyncer, l)
 	}
 // 为什么不能直接赋值给zap.L()？
