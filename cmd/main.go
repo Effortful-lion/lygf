@@ -18,23 +18,30 @@ func main() {
 	err := setting.Init()
 	if err != nil {
 		panic(err)
+		zap.L().Error("配置文件读取失败", zap.Error(err))
 	}
 
 	// 初始化日志
 	err = logger.Init(setting.Conf.LogConfig, setting.Conf.Mode)
 	if err != nil {
+		zap.L().Error("日志初始化失败", zap.Error(err))
 		panic(err)
 	}
+	//通常用于将日志缓冲区中的内容（如果有的话）刷新到对应的输出目标（比如文件、标准输出等）
+	//避免出现日志丢失等情况，保证日志记录的完整性
+	defer zap.L().Sync()
 
 	// 初始化mysql
 	err = mysql.Init(setting.Conf.MysqlConfig)
 	if err != nil {
+		zap.L().Error("mysql init fail")
 		panic(err)
 	}
 
 	// 初始化redis
 	err = redis.Init(setting.Conf.RedisConfig)
 	if err != nil {
+		zap.L().Error("redis init fail")
 		panic(err)
 	}
 

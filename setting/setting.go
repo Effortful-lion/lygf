@@ -1,10 +1,6 @@
 package setting
 
 import (
-	"fmt"
-	"time"
-
-	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
@@ -81,14 +77,20 @@ func Init()(err error){
 		return err
 	}
 
-	viper.WatchConfig()	 // 监控配置文件
-	viper.OnConfigChange(func(in fsnotify.Event) {
-		fmt.Println("配置文件被修改")
-		time.Sleep(1 * time.Second) // 延迟1秒，可根据实际情况调整
-		if err := viper.Unmarshal(Conf); err!= nil {
-			zap.L().Error("viper.Unmarshal failed", zap.Error(err))
-			// 可以在这里添加更完善的错误处理逻辑，比如尝试重新读取等操作
-		}
-	})
+	// 其实air已经可以监控了
+
+	// // 监控配置文件变化 并 对变化做处理
+	// viper.WatchConfig()	
+	// viper.OnConfigChange(func(in fsnotify.Event) {
+	// 	time.Sleep(1 * time.Second) // 延迟1秒，可根据实际情况调整
+	// 	if err := viper.Unmarshal(Conf); err!= nil {
+	// 		zap.L().Error("viper.Unmarshal failed", zap.Error(err))
+	// 		// 可以在这里添加更完善的错误处理逻辑，比如尝试重新读取等操作
+	// 	}
+		
+	// 	fmt.Println("配置文件被修改")
+	// })
+
+
 	return
 }

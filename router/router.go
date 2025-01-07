@@ -11,6 +11,13 @@ import (
 
 
 func SetupRouter(mode string) *gin.Engine {
+	// 设置gin框架的运行模式
+	if mode == "release" {
+		gin.SetMode(gin.ReleaseMode)
+	} else {
+		gin.SetMode(gin.DebugMode)
+	}
+
 	// 1. 创建gin的空白实例
 	r := gin.New()
 	r.Use(logger.GinLogger(),logger.GinRecovery(true))	// 使用自定义的中间件
@@ -20,7 +27,6 @@ func SetupRouter(mode string) *gin.Engine {
 			"msg":"ok",
 		})
 	})
-
 	
 	// 返回实例
 	return r
