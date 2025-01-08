@@ -1,6 +1,7 @@
 package router
 
 import (
+	"lygf/backend/controller"
 	"lygf/backend/logger"
 
 	"github.com/gin-gonic/gin"
@@ -30,13 +31,13 @@ func SetupRouter(mode string) *gin.Engine {
 		})
 	})
 
-	//rg := r.Group("/api/v1")
+	rg := r.Group("/api/v1")
 
 	{
-		// // 用户注册
-		// rg.POST("/regist",UserRegist)
+		// 用户注册
+		rg.POST("auth/register",controller.UserRegister)
 		// // 用户登录
-		// rg.POST("/login",UserLogin)
+		// rg.POST("auth/login",UserLogin)
 	}
 
 

@@ -5,7 +5,8 @@ import (
 	"lygf/backend/dao/mysql"
 	"lygf/backend/dao/redis"
 	"lygf/backend/logger"
-	//model "lygf/backend/model/mysql"
+	"lygf/backend/pkg"
+
 	"lygf/backend/router"
 	"lygf/backend/setting"
 
@@ -35,18 +36,24 @@ func main() {
 	// 初始化mysql
 	err = mysql.Init(setting.Conf.MysqlConfig)
 	if err != nil {
-		zap.L().Error("mysql init fail")
+		zap.L().Error("mysql初始化失败")
 		panic(err)
 	}
 
 	// 初始化mysql表（只在需要时初始化一次就可以了）
-	//model.Init()
+	//mysql.InitModels()
 
 	// 初始化redis
 	err = redis.Init(setting.Conf.RedisConfig)
 	if err != nil {
-		zap.L().Error("redis init fail")
+		zap.L().Error("redis初始化失败")
 		panic(err)
+	}
+
+	// 初始化验证库
+	err = pkg.Init()
+	if err != nil{
+		zap.L().Error("validator初始化失败")
 	}
 
 	// 注册路由
