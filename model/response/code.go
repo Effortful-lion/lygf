@@ -10,6 +10,10 @@ const(
 	CodeInvalidParam					// 参数校验失败码
 	CodeError 							// 请求错误（其他错误）
 	CodeRegisterFailed					// 注册失败
+	CodeLoginFailed						// 用户名或密码错误
+	CodeLoginFailedByCode				// 验证码错误
+	CodeNeedLogin						// 需要登录
+	CodeInvalidToken					// Token过期
 )
 
 // 定义状态码和响应提示信息映射
@@ -18,6 +22,10 @@ var codeMsgMap = map[ResCode]string{
 	CodeInvalidParam: "请求参数无效",
 	CodeError:"服务错误",
 	CodeRegisterFailed:"注册失败",
+	CodeLoginFailed:"用户名或密码错误",
+	CodeLoginFailedByCode:"验证码错误",
+	CodeNeedLogin:"需要登录",
+	CodeInvalidToken:"Token过期",
 }
 
 // 根据状态码获得相应提示信息

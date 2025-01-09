@@ -27,7 +27,7 @@ func Init(cfg *setting.MysqlConfig) (err error) {
 		// 使用 zap 日志库
 		zap.NewStdLog(zap.L()), 
 		logger.Config{
-		  SlowThreshold:              time.Second,   // Slow SQL threshold
+		  SlowThreshold:              time.Second,    // Slow SQL threshold
 		  LogLevel:                   logger.Info, // 日志等级： Silent, Error, Warn, Info
 		  IgnoreRecordNotFoundError: true,           // 忽略记录未找到的错误
 		  ParameterizedQueries:      true,           // 启用参数化查询（占位符那种）

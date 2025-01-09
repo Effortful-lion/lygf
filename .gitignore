@@ -2,3 +2,4 @@
 backend/tmp/
 *.exe
 *.log
+*.vscode
