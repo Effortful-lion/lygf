@@ -12,6 +12,7 @@ import (
 var ErrorUserNotLogin = errors.New("用户未登录")
 var ContextUserIDKey = "userID"
 
+// userid是通过解析token后，将token负载中的userid解析并设置到context中
 // 获取当前登录的用户的ID
 func getCurrentUserId(c *gin.Context) (userId int, err error) {
 	uid, ok := c.Get(ContextUserIDKey)

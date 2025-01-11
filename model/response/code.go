@@ -8,12 +8,12 @@ type ResCode int64
 const(
 	CodeSuccess ResCode = 1000 + iota	// 响应成功码
 	CodeInvalidParam					// 参数校验失败码
-	CodeError 							// 请求错误（其他错误）
+	CodeError 							// 请求错误（服务器错误）
 	CodeRegisterFailed					// 注册失败
 	CodeLoginFailed						// 用户名或密码错误
 	CodeLoginFailedByCode				// 验证码错误
 	CodeNeedLogin						// 需要登录
-	CodeInvalidToken					// Token过期
+	CodeSendEmailFailed					// 发送邮件失败
 )
 
 // 定义状态码和响应提示信息映射
@@ -25,7 +25,7 @@ var codeMsgMap = map[ResCode]string{
 	CodeLoginFailed:"用户名或密码错误",
 	CodeLoginFailedByCode:"验证码错误",
 	CodeNeedLogin:"需要登录",
-	CodeInvalidToken:"Token过期",
+	CodeSendEmailFailed: "发送邮件失败",
 }
 
 // 根据状态码获得相应提示信息

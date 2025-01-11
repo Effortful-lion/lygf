@@ -41,7 +41,7 @@ func main() {
 	}
 
 	// 初始化mysql表（只在需要时初始化一次就可以了）
-	//mysql.InitModels()
+	mysql.InitModels()
 
 	// 初始化redis
 	err = redis.Init(setting.Conf.RedisConfig)

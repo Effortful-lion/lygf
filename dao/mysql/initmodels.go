@@ -10,4 +10,5 @@ import "lygf/backend/model/entity"
 func InitModels(){
 	// 迁移数据库
 	db.AutoMigrate(&entity.User{})
+	db.AutoMigrate(&entity.Product{})
 }

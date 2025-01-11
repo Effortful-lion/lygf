@@ -30,6 +30,10 @@ func Init(cfg *setting.RedisConfig) (err error) {
     return err
 }
 
+func GetRedis() *redis.Client {
+	return rdb
+}
+
 func Close() {
 	err := rdb.Close()
 	if err != nil {
