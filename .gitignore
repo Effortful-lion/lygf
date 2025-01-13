@@ -4,3 +4,4 @@ backend/tmp/
 *.log
 *.vscode
 *.yaml
+backend/conf/
