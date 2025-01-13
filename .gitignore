@@ -3,3 +3,4 @@ backend/tmp/
 *.exe
 *.log
 *.vscode
+*.yaml

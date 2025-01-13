@@ -131,7 +131,7 @@ const VerificationCodeFormat = `<!DOCTYPE html>
         <!-- 底部 -->
         <div class="email-footer">
             <p>此邮件由系统自动发送，请勿回复。</p>
-            <p>如果您需要帮助，请访问我们的<a href="https://example.com/help">帮助中心</a>。</p>
+            <p>如果您需要帮助，请邮件联系我们的管理员：server-lion@qq.com</p>
         </div>
     </div>
 </body>
