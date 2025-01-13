@@ -1,5 +1,6 @@
 package param
 
+// 商品的参数信息
 
 
 type Product struct {

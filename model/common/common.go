@@ -22,11 +22,11 @@ func (u *UserType) UnmarshalJSON(data []byte) error {
 
     switch s {
     case "USER":
-        *u = USER
+        *u = USER       // 0
     case "SHOP":
-        *u = SHOP
+        *u = SHOP       // 1
     default:
-        return errors.New("invalid user type")
+        return errors.New("无效的用户类型")     // 如果前端采用单选框，这里可以返回nil
     }
     return nil
 }

@@ -36,3 +36,11 @@ redis:
   db: 2
   pool_size: 100
   password: 123456 
+
+# qq邮箱相关配置
+qq_email:
+  host: "smtp.qq.com"
+  port: 465
+  username: "server-lion@qq.com"
+  password: "gdgwjsrtqklmhjhi"
+  from_email: "server-lion@qq.com"

@@ -19,7 +19,7 @@ func main() {
 	// 读取配置文件
 	err := setting.Init()
 	if err != nil {
-		zap.L().Error("配置文件读取失败", zap.Error(err))
+		fmt.Println("读取配置文件失败")
 		panic(err)
 	}
 
@@ -41,7 +41,7 @@ func main() {
 	}
 
 	// 初始化mysql表（只在需要时初始化一次就可以了）
-	mysql.InitModels()
+	//mysql.InitModels()
 
 	// 初始化redis
 	err = redis.Init(setting.Conf.RedisConfig)

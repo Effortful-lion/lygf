@@ -47,6 +47,7 @@ func UpdateUserInfo(ctx *gin.Context) {
     }
 
     user := &param.ParamUpdateUserInfo{}
+    // 进行安全的类型断言和转换
     if username, ok := data["username"].(string); ok {
         user.Username = username
     } else {

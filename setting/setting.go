@@ -15,9 +15,10 @@ var Conf = new(Config)
 
 type Config struct {
 	*AppConfig       `mapstructure:"app"`
-	*LogConfig       `mapstructure:"log"`
-	*MysqlConfig     `mapstructure:"mysql"`
-	*RedisConfig     `mapstructure:"redis"`
+	*LogConfig `mapstructure:"log"`	// 日志配置
+	*MysqlConfig `mapstructure:"mysql"`	// mysql配置
+	*RedisConfig `mapstructure:"redis"`	// redis配置
+	*EmailConfig `mapstructure:"qq_email"` // 邮箱配置
 }
 
 type AppConfig struct {
@@ -27,9 +28,6 @@ type AppConfig struct {
 	Port int `mapstructure:"port"`	// 运行端口
 	StartTime string `mapstructure:"start_time"`	// 启动时间
 	MachineID int `mapstructure:"machine_id"`	// 机器ID
-	*LogConfig `mapstructure:"log"`	// 日志配置
-	*MysqlConfig `mapstructure:"mysql"`	// mysql配置
-	*RedisConfig `mapstructure:"redis"`	// redis配置
 }
 
 type LogConfig struct {
@@ -56,6 +54,14 @@ type RedisConfig struct {
 	Port string `mapstructure:"port"`
 	DB int `mapstructure:"db"`
 	PoolSize int `mapstructure:"pool_size"`
+}
+
+type EmailConfig struct {
+	Host string `mapstructure:"host"`
+	Port int `mapstructure:"port"`
+	Username string `mapstructure:"username"`
+	Password string `mapstructure:"password"`
+	FromEmail string `mapstructure:"from_email"`
 }
 
 func Init()(err error){
@@ -90,7 +96,6 @@ func Init()(err error){
 		
 	// 	fmt.Println("配置文件被修改")
 	// })
-
 
 	return
 }

@@ -1,5 +1,7 @@
 package entity
 
+// 商品信息
+
 import "gorm.io/gorm"
 
 type Product struct {

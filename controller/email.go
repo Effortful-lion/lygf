@@ -5,11 +5,10 @@ import (
 	"math/rand"
 	"net/http"
 	"time"
-
 	"lygf/backend/model/response"
 	"lygf/backend/pkg/email"
 	"lygf/backend/service"
-
+	"lygf/backend/setting"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,7 +16,7 @@ import (
 func generateVerificationCode() string {
     rand.Seed(time.Now().UnixNano())
     code := fmt.Sprintf("%06d", rand.Intn(1000000))
-    fmt.Println("Generated verification code:", code)
+    fmt.Println("验证码生成成功：", code)
     return code // 6位数字验证码
 }
 
@@ -36,23 +35,29 @@ func SendEmailCode(c *gin.Context) {
     code := generateVerificationCode()
 
     // 保存验证码到 Redis（或者数据库）
-    if err := service.SaveVerificationCode(req.Email, code, 15*time.Minute); err != nil {
-        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save verification code"})
+    if err := service.SaveVerificationCode(req.Email, code, 5*time.Minute); err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "验证码保存失败"})
         return
     }
 
+    cfg := setting.Conf.EmailConfig
+
+    fmt.Println(cfg.Host,cfg.Port,cfg.Username,cfg.Password,cfg.FromEmail)
+
     // 导入邮件发送模块发送邮件
     emailSender := email.NewEmailSender(
-        "smtp.qq.com",               // SMTP 服务器
-        465,                         // 端口号（QQ邮箱通常使用 SSL 加密）
-        "1106764332@qq.com",         // 发件邮箱
-        "gdgwjsrtqklmhjhi",          // 授权码（非邮箱密码）
-        "1106764332@qq.com",         // 发件邮箱（默认发件人）
+        cfg.Host,               // SMTP 服务器
+        cfg.Port,                         // 端口号（QQ邮箱通常使用 SSL 加密）
+        cfg.Username,         // 用户名(一般默认是邮箱)
+        cfg.Password,          // 授权码（非邮箱密码）
+        cfg.FromEmail,         // 发件邮箱
     )
-    err := emailSender.SendEmail(req.Email, "Your Verification Code", "Welcome to lygf !, your code is: "+code)
+    subject := "邻优果坊验证码"
+    body := fmt.Sprintf(email.VerificationCodeFormat,code)
+    err := emailSender.SendEmail(req.Email, subject,body)
     if err != nil {
-        fmt.Println("Failed to send email:", err) // 添加错误日志
-        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to send email"})
+        fmt.Println("验证码发送失败", err) // 添加错误日志
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "验证码发送失败"})
         return
     }
 
