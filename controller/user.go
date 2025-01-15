@@ -15,6 +15,32 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
+// 用户退出
+func UserLogout(ctx *gin.Context) {
+    user_id, err := getCurrentUserId(ctx)
+    if err != nil {
+        response.ResponseError(ctx, response.CodeNeedLogin)
+        return
+    }
+    if err := service.UserLogout(user_id); err != nil {
+        response.ResponseError(ctx, response.CodeError)
+        return
+    }
+    response.ResponseSuccess(ctx, nil)
+}
+
+// 注销用户
+func UserDelete(ctx *gin.Context) {
+    user_id,err := getCurrentUserId(ctx)
+    if err != nil {
+        response.ResponseError(ctx, response.CodeNeedLogin)
+    }
+    if err := service.DeleteUser(user_id); err != nil {
+        response.ResponseError(ctx, response.CodeError)
+    }
+    response.ResponseSuccess(ctx, nil)
+}
+
 // 为编辑用户信息回显，查询用户信息
 func GetUserInfoForEdit(ctx *gin.Context){
     user_id,err := getCurrentUserId(ctx)

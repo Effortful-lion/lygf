@@ -9,6 +9,8 @@ import (
 	"errors"
 	"time"
 
+	"lygf/backend/dao/redis"
+
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/spf13/viper"
 )
@@ -59,10 +61,15 @@ func ParseToken(tokenStr string) (*MyClaims, error) {
 		// token解析失败
 		return nil, err
 	}
-	if token.Valid { 
-		// 校验token，token正确则返回负载的用户信息
-		return mc, nil
+	token_redis,err := redis.GetUserToken(mc.UserID) 
+	// token 过期
+	if err != nil || token_redis != tokenStr {
+		return nil, errors.New("token expired")
 	}
-	// 校验token失败
-	return nil, errors.New("invalid token")
+	if !token.Valid { 
+		// 校验token失败
+		return nil, errors.New("invalid token")
+	}
+	// 校验token，token正确则返回负载的用户信息
+	return mc,nil 
 }

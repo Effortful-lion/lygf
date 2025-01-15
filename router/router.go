@@ -55,6 +55,10 @@ func SetupRouter(mode string) *gin.Engine {
 		v1.GET("users/edit",controller.GetUserInfoForEdit)
 		// 更新用户信息
 		v1.PUT("users",controller.UpdateUserInfo)
+		// 用户注销
+		v1.DELETE("users",controller.UserDelete)
+		// 用户退出
+		v1.POST("auth/logout",controller.UserLogout)
 	}
 
 

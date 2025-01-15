@@ -24,6 +24,14 @@ import (
 // 	return user
 // }
 
+// 删除用户信息
+func DeleteUser(userID int) (err error) {
+    if err = db.Delete(&entity.User{}, userID).Error; err != nil {
+        return err
+    }
+    return nil
+}
+
 // 根据邮箱查询用户
 func GetUserByEmail(email string) (user *entity.User) {
 	user = new(entity.User)

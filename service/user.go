@@ -14,6 +14,24 @@ import (
 	"go.uber.org/zap"
 )
 
+// 用户退出
+func UserLogout(userID int) (err error){
+    if err = redis.DelUserToken(userID); err != nil {
+        zap.L().Error("删除用户token失败", zap.Error(err))
+        return err
+    }
+    return nil
+}
+
+// 删除用户
+func DeleteUser(userID int) (err error) {
+    if err = mysql.DeleteUser(userID); err != nil {
+        zap.L().Error("删除用户失败", zap.Error(err))
+        return err
+    }
+    return nil
+}
+
 // 更新用户信息
 func UpdateUserInfo(userID int,userInfo *param.ParamUpdateUserInfo) (err error) {
     user := &entity.User{}
