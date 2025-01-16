@@ -59,6 +59,15 @@ func SetupRouter(mode string) *gin.Engine {
 		v1.DELETE("users",controller.UserDelete)
 		// 用户退出
 		v1.POST("auth/logout",controller.UserLogout)
+		
+	}
+
+	// 首页接口
+	{
+		// 获取分类列表: 其实前端应该可以写死，就不需要了
+		v1.GET("home/categories",controller.GetCategories)
+		// 根据两个分类条件获取所有商铺列表
+		v1.GET("home/shop/:cateID1/:cateId2",controller.GetShops)
 	}
 
 

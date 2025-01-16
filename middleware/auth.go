@@ -20,7 +20,7 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 		if authHeader == "" {
 			c.JSON(http.StatusOK, gin.H{
 				"code": response.CodeNeedLogin,
-				"msg":  "请求头中auth为空",
+				"msg":  "请求头中token为空",
 			})
 			c.Abort()
 			return
@@ -30,7 +30,7 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 		if !(len(parts) == 2 && parts[0] == "Bearer") {
 			c.JSON(http.StatusOK, gin.H{
 				"code": response.CodeNeedLogin,
-				"msg":  "请求头中auth格式有误",
+				"msg":  "请求头中token格式有误",
 			})
 			c.Abort()
 			return
