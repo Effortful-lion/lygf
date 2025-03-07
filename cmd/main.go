@@ -41,7 +41,7 @@ func main() {
 	}
 
 	// 初始化mysql表（只在需要时初始化一次就可以了）
-	//mysql.InitModels()
+	mysql.InitModels()
 
 	// 初始化redis
 	err = redis.Init(setting.Conf.RedisConfig)
@@ -60,9 +60,10 @@ func main() {
 	r := router.SetupRouter(setting.Conf.Mode)
 
 	// 启动服务
-	if err := r.Run(fmt.Sprintf("127.0.0.1:%d",setting.Conf.AppConfig.Port)); err != nil{
-		zap.L().Error("启动失败",zap.String("msg",err.Error()))
-		return
-	}
+	// if err := r.Run(fmt.Sprintf(":%d",setting.Conf.AppConfig.Port)); err != nil{
+	// 	zap.L().Error("启动失败",zap.String("msg",err.Error()))
+	// 	return
+	// }
+	r.Run(":8080")
 
 }
