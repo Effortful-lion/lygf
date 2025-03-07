@@ -70,7 +70,7 @@ func Init()(err error){
 	// viper.SetConfigName("config")
 	// viper.SetConfigType("yaml")
 	// viper.AddConfigPath("./conf/")	// 这里的路径指向的是程序的运行目录，比如：D:\GolandCode\src\lygf\backend
-	viper.SetConfigFile("./conf/config.yaml")
+	viper.SetConfigFile("../conf/config.yaml")
 	err = viper.ReadInConfig()		//从配置文件中读取配置项
 	if err != nil{
 		// 文件未找到，读取失败

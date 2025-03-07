@@ -28,7 +28,7 @@ var codeMsgMap = map[ResCode]string{
 	CodeSendEmailFailed: "发送邮件失败",
 }
 
-// 根据状态码获得相应提示信息
+// 根据状态码获得响应提示信息
 func (code ResCode) Msg() string{
 	msg, ok := codeMsgMap[code]
 	if !ok {
